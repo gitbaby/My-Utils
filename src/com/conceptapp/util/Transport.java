@@ -1,8 +1,10 @@
 package com.conceptapp.util;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -52,7 +54,19 @@ public class Transport {
 			offset += bytesRead;
 		}
 		in.close();
+		raw.close();
 		return data;
+	}
+
+	public String fetchString() throws IOException {
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		StringBuilder content = new StringBuilder();
+		String line;
+		while ((line = bufferedReader.readLine()) != null) {
+			content.append(line + "\n");
+		}
+		bufferedReader.close();
+		return content.toString();
 	}
 
 }
