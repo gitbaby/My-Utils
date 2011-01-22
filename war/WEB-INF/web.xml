@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+  
+<!--
+	<servlet>
+		<servlet-name>Welcome</servlet-name>
+		<servlet-class>com.conceptapp.WelcomeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Welcome</servlet-name>
+		<url-pattern>/welcome</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Companies</servlet-name>
+		<servlet-class>com.conceptapp.companies.CompaniesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Companies</servlet-name>
+		<url-pattern>/app/companies</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EditCompany</servlet-name>
+		<servlet-class>com.conceptapp.companies.EditCompanyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditCompany</servlet-name>
+		<url-pattern>/app/editcompany</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Auth</servlet-name>
+		<servlet-class>com.conceptapp.contacts.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Auth</servlet-name>
+		<url-pattern>/app/contacts/auth</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AuthHandler</servlet-name>
+		<servlet-class>com.conceptapp.contacts.HandleTokenServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthHandler</servlet-name>
+		<url-pattern>/app/contacts/authhandler</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Contacts</servlet-name>
+		<servlet-class>com.conceptapp.contacts.ContactsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Contacts</servlet-name>
+		<url-pattern>/app/main</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<url-pattern>/</url-pattern>
+			<url-pattern>/welcome</url-pattern>
+			<url-pattern>/app/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<welcome-file-list>
+		<welcome-file>welcome</welcome-file>
+	</welcome-file-list>
+-->
+
+	<servlet>
+		<servlet-name>Videos</servlet-name>
+		<servlet-class>com.conceptapp.videos.VideosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Videos</servlet-name>
+		<url-pattern>/videos</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Search</servlet-name>
+		<servlet-class>com.conceptapp.videos.SearchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Search</servlet-name>
+		<url-pattern>/search/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Video</servlet-name>
+		<servlet-class>com.conceptapp.videos.VideoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Video</servlet-name>
+		<url-pattern>/video/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Serve</servlet-name>
+		<servlet-class>com.conceptapp.videos.ServeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Serve</servlet-name>
+		<url-pattern>/serve/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Upload</servlet-name>
+		<servlet-class>com.conceptapp.videos.UploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Upload</servlet-name>
+		<url-pattern>/member/upload</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Uploading</servlet-name>
+		<servlet-class>com.conceptapp.videos.UploadingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Uploading</servlet-name>
+		<url-pattern>/member/uploading</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Uploaded</servlet-name>
+		<servlet-class>com.conceptapp.videos.UploadedServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Uploaded</servlet-name>
+		<url-pattern>/member/uploaded/*</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<url-pattern>/member/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<welcome-file-list>
+		<welcome-file>videos</welcome-file>
+	</welcome-file-list>
+
+</web-app>

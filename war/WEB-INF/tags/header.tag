@@ -25,6 +25,9 @@
 <c:if test="${!empty user}">
 	<div>Welcome ${user} <a href="${logout}">Sign Out</a></div>
 </c:if>
+<c:if test="${!empty nickname}">
+	<div>Welcome ${nickname} <a href="${logout}">Sign Out</a></div>
+</c:if>
 <c:if test="${!empty h1}">
 	<h1>${h1}</h1>
 </c:if>
