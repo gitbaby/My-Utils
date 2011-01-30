@@ -1,5 +1,10 @@
 package com.conceptapp.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Iterator;
 
 public class MyUtils {
@@ -43,6 +48,35 @@ public class MyUtils {
 			}
 		}
 		return buffer.toString();
+	}
+
+	public static byte[] objectToBytes(Object object) {
+		if (object == null) {
+			return null;
+		}
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject(object);
+		} catch (IOException ex) {
+			new Log(MyUtils.class.getName()).stackTrace(ex);
+		}
+		return baos.toByteArray();
+	}
+
+	public static Object bytesToObject(byte[] bytes) {
+		if (bytes == null) {
+			return null;
+		}
+		Object object = null;
+		try {
+			object = new ObjectInputStream(new ByteArrayInputStream(bytes)).readObject();
+		} catch (IOException ex) {
+			new Log(MyUtils.class.getName()).stackTrace(ex);
+		} catch (ClassNotFoundException ex) {
+			new Log(MyUtils.class.getName()).stackTrace(ex);
+		}
+		return object;
 	}
 
 }
