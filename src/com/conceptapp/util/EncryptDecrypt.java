@@ -15,13 +15,18 @@ import org.apache.commons.codec.binary.Base64;
 
 public final class EncryptDecrypt {
 
+	// openssl req -nodes -new -x509 -keyout misc.key -out misc.crt -days 36500
+	private static String crtPath = "WEB-INF/openssl/misc.crt";
+
+	// openssl pkcs8 -nocrypt -topk8 -inform PEM -outform DER -in misc.key -out misc.key.pkcs8
+	private static String keyPath = "WEB-INF/openssl/misc.key.pkcs8";
+
 	private EncryptDecrypt() {}
 
-	public static String encrypt(String plain) {
+	public static String encrypt(String crtPath, String plain) {
 		try {
 			// Load certificate file
-			// openssl req -nodes -new -x509 -keyout misc.key -out misc.crt -days 36500
-			InputStream is = new FileInputStream("WEB-INF/openssl/misc.crt");
+			InputStream is = new FileInputStream(crtPath);
 			CertificateFactory cf = CertificateFactory.getInstance("X.509");
 			X509Certificate cert = (X509Certificate)cf.generateCertificate(is);
 			is.close();
@@ -38,11 +43,14 @@ public final class EncryptDecrypt {
 		}
 	}
 
-	public static String decrypt(String secret) {
+	public static String encrypt(String plain) {
+		return encrypt(crtPath, plain);
+	}
+
+	public static String decrypt(String keyPath, String secret) {
 		try {
 			// Load private key file  
-			// openssl pkcs8 -nocrypt -topk8 -inform PEM -outform DER -in misc.key -out misc.key.pkcs8
-			InputStream is = new FileInputStream("WEB-INF/openssl/misc.key.pkcs8");
+			InputStream is = new FileInputStream(keyPath);
 			byte[] key = new byte[is.available()];
 			is.read(key);
 			is.close();
@@ -57,6 +65,10 @@ public final class EncryptDecrypt {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public static String decrypt(String secret) {
+		return decrypt(keyPath, secret);
 	}
 
 }
