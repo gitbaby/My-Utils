@@ -1,6 +1,7 @@
 package com.conceptapp.util;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.security.cert.X509Certificate;
 import java.security.cert.CertificateFactory;
@@ -23,10 +24,9 @@ public final class EncryptDecrypt {
 
 	private EncryptDecrypt() {}
 
-	public static String encrypt(String crtPath, String plain) {
+	public static String encrypt(InputStream is, String plain) {
 		try {
 			// Load certificate file
-			InputStream is = new FileInputStream(crtPath);
 			CertificateFactory cf = CertificateFactory.getInstance("X.509");
 			X509Certificate cert = (X509Certificate)cf.generateCertificate(is);
 			is.close();
@@ -44,13 +44,16 @@ public final class EncryptDecrypt {
 	}
 
 	public static String encrypt(String plain) {
-		return encrypt(crtPath, plain);
+		try {
+			return encrypt(new FileInputStream(crtPath), plain);
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-	public static String decrypt(String keyPath, String secret) {
+	public static String decrypt(InputStream is, String secret) {
 		try {
 			// Load private key file  
-			InputStream is = new FileInputStream(keyPath);
 			byte[] key = new byte[is.available()];
 			is.read(key);
 			is.close();
@@ -68,7 +71,11 @@ public final class EncryptDecrypt {
 	}
 
 	public static String decrypt(String secret) {
-		return decrypt(keyPath, secret);
+		try {
+			return decrypt(new FileInputStream(keyPath), secret);
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }
