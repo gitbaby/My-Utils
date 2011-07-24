@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
-
 import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -22,20 +21,30 @@ public class DB {
 	 */
 	public static <T extends Object> T getRecord(PersistenceManager pm, Class<T> cl, Key key) {
 		T rec = null;
-		Transaction tx = pm.currentTransaction();
 		try {
-			tx.begin();
-			try {
-				rec = pm.getObjectById(cl, key);
-			} catch (JDOObjectNotFoundException e) {
-				// Does not exist
-			}
-			tx.commit();
-		} finally {
-			if (tx.isActive()) tx.rollback();
+			rec = pm.getObjectById(cl, key);
+		} catch (JDOObjectNotFoundException e) {
+			// Does not exist
 		}
 		return rec;
 	}
+
+    /**
+     * Deletes record by key.
+     */
+    public static <T extends Object> boolean deleteRecord(PersistenceManager pm, Class<T> cl, Key key) {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            pm.deletePersistent(pm.getObjectById(cl, key));
+            tx.commit();
+        } catch (JDOObjectNotFoundException e) {
+            // Does not exist
+        } finally {
+            if (tx.isActive()) tx.rollback();
+        }
+        return true;
+    }
 
 	/**
 	 * Finds a record for each key. Order is preserved. Returns detached copies.
@@ -43,7 +52,9 @@ public class DB {
 	@SuppressWarnings("unchecked")
 	public static <T extends DBObject> List<T> getRecords(PersistenceManager pm, Class<T> cl, List<Key> keys) {
 		int keysSize = keys.size();
-		if (keysSize == 0) return new ArrayList<T>();
+		if (keysSize == 0) {
+			return new ArrayList<T>();
+		}
 		Vector<Key> vector = new Vector<Key>(keys);
 		Object[] records = new Object[keysSize];
 		Query q = pm.newQuery("select from " + cl.getName() + " where :keys.contains(key)");
