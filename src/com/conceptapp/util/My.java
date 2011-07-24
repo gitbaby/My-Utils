@@ -7,9 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Iterator;
 
-public class MyUtils {
+public class My {
 
-	private MyUtils() {}
+	private My() {}
 
 	public static String escapeHtml(String text) {
 		if (text == null) return "";
@@ -59,7 +59,7 @@ public class MyUtils {
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
 			oos.writeObject(object);
 		} catch (IOException ex) {
-			new Log(MyUtils.class.getName()).stackTrace(ex);
+			new Log(My.class.getName()).stackTrace(ex);
 		}
 		return baos.toByteArray();
 	}
@@ -72,9 +72,9 @@ public class MyUtils {
 		try {
 			object = new ObjectInputStream(new ByteArrayInputStream(bytes)).readObject();
 		} catch (IOException ex) {
-			new Log(MyUtils.class.getName()).stackTrace(ex);
+			new Log(My.class.getName()).stackTrace(ex);
 		} catch (ClassNotFoundException ex) {
-			new Log(MyUtils.class.getName()).stackTrace(ex);
+			new Log(My.class.getName()).stackTrace(ex);
 		}
 		return object;
 	}

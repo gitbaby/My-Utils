@@ -1,6 +1,6 @@
 package com.conceptapp.videos;
 
-import com.conceptapp.util.MyUtils;
+import com.conceptapp.util.My;
 import com.conceptapp.util.PMF;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
@@ -33,9 +33,9 @@ public class UploadingServlet extends HttpServlet {
 		if (blobKey == null) {
 			response.sendRedirect("/member/uploaded/error");
 		} else {
-			String title = MyUtils.escapeHtml(request.getParameter("title"));
-			String description = MyUtils.escapeHtml(request.getParameter("description"));
-			String keywords = MyUtils.escapeHtml(request.getParameter("keywords"));
+			String title = My.escapeHtml(request.getParameter("title"));
+			String description = My.escapeHtml(request.getParameter("description"));
+			String keywords = My.escapeHtml(request.getParameter("keywords"));
 			Video video = new Video(title, description, keywords);
 			video.setMemberId(member.getId());
 			video.setVideoBlobId(blobKey.getKeyString());
